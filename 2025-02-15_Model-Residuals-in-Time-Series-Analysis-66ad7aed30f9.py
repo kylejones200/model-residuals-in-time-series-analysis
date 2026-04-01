@@ -158,6 +158,6 @@ if __name__ == "__main__":
     main()
 
 ### Normality Tests ###
-Shapiro-Wilk: {'statistic': 0.977533993395285, 'p-value': 0.0852560281344462}
-Anderson-Darling: {'statistic': 0.6214102099727086, 'critical_values': array([0.555, 0.632, 0.759, 0.885, 1.053])}
-Jarque-Bera: {'statistic': 2.42505305943258, 'p-value': 0.29744482609021683}
+# Shapiro-Wilk: {'statistic': 0.977533993395285, 'p-value': 0.0852560281344462}
+# Anderson-Darling: {'statistic': 0.6214102099727086, 'critical_values': array([0.555, 0.632, 0.759, 0.885, 1.053])}
+# Jarque-Bera: {'statistic': 2.42505305943258, 'p-value': 0.29744482609021683}
