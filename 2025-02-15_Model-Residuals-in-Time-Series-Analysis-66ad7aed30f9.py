@@ -44,26 +44,27 @@ class ResidualAnalyzer:
         }
         return pd.Series(stats_dict)
 
-    def plot_residual_distribution(self):
+    def plot_residual_distribution(self, plot: bool = False):
         """
         Show how residuals are distributed.
         """
-        plt.figure(figsize=(12, 6))
+        if plot:
+            plt.figure(figsize=(12, 6))
         
-        plt.subplot(1, 2, 1)
-        sns.histplot(self.residuals, kde=True)
-        plt.title('Residual Distribution')
-        plt.xlabel('Residual Value')
-        plt.ylabel('Frequency')
-        plt.savefig("residual_distribution.png")
+            plt.subplot(1, 2, 1)
+            sns.histplot(self.residuals, kde=True)
+            plt.title('Residual Distribution')
+            plt.xlabel('Residual Value')
+            plt.ylabel('Frequency')
+            plt.savefig("residual_distribution.png")
         
-        plt.subplot(1, 2, 2)
-        stats.probplot(self.residuals, dist="norm", plot=plt)
-        plt.title('Q-Q Plot of Residuals')
-        plt.savefig("qq_plot.png")
+            plt.subplot(1, 2, 2)
+            stats.probplot(self.residuals, dist="norm", plot=plt)
+            plt.title('Q-Q Plot of Residuals')
+            plt.savefig("qq_plot.png")
         
-        plt.tight_layout()
-        plt.show()
+            plt.tight_layout()
+            plt.show()
 
     def normality_tests(self):
         """
@@ -81,23 +82,24 @@ class ResidualAnalyzer:
         }
         return results
 
-    def autocorrelation_analysis(self, nlags=40):
+    def autocorrelation_analysis(self, nlags=40, plot: bool = False):
         """
         Check if residuals are autocorrelated.
         """
         acf_values = acf(self.residuals, nlags=nlags, fft=False)
         confidence_interval = 1.96 / np.sqrt(len(self.residuals))
         
-        plt.figure(figsize=(12, 4))
-        plt.bar(range(len(acf_values)), acf_values)
-        plt.axhline(y=confidence_interval, color='r', linestyle='--')
-        plt.axhline(y=-confidence_interval, color='r', linestyle='--')
-        plt.title('Autocorrelation Function of Residuals')
-        plt.xlabel('Lag')
-        plt.ylabel('ACF')
-        plt.savefig("autocorrelation_function.png")
+        if plot:
+            plt.figure(figsize=(12, 4))
+            plt.bar(range(len(acf_values)), acf_values)
+            plt.axhline(y=confidence_interval, color='r', linestyle='--')
+            plt.axhline(y=-confidence_interval, color='r', linestyle='--')
+            plt.title('Autocorrelation Function of Residuals')
+            plt.xlabel('Lag')
+            plt.ylabel('ACF')
+            plt.savefig("autocorrelation_function.png")
         
-        plt.show()
+            plt.show()
         return acf_values
 
     def interpret_residual_analysis(self):
