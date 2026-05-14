@@ -1,7 +1,7 @@
 # Model Residuals in Time Series Analysis
 
-**Published:** 2025-02-15
-**Medium:** [https://medium.com/@kyle-t-jones/model-residuals-in-time-series-analysis-66ad7aed30f9](https://medium.com/@kyle-t-jones/model-residuals-in-time-series-analysis-66ad7aed30f9)
+Published: 2025-02-15
+Medium: [https://medium.com/@kyle-t-jones/model-residuals-in-time-series-analysis-66ad7aed30f9](https://medium.com/@kyle-t-jones/model-residuals-in-time-series-analysis-66ad7aed30f9)
 
 ## About
 
