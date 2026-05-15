@@ -1,15 +1,14 @@
 # Description: Short example for Model Residuals in Time Series Analysis.
 
 
-
-from scipy import stats
-from statsmodels.tsa.stattools import acf
-from statsmodels.tsa.stattools import acf  # Correct import
 import logging
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from scipy import stats
+from statsmodels.tsa.stattools import acf  # Correct import
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -18,12 +17,11 @@ logging.basicConfig(
 )
 
 
-
-
 class ResidualAnalyzer:
     """
     A toolkit for analyzing residuals.
     """
+
     def __init__(self, actual_values, predicted_values):
         self.actual = np.array(actual_values)
         self.predicted = np.array(predicted_values)
@@ -34,12 +32,12 @@ class ResidualAnalyzer:
         Get key stats on residuals.
         """
         stats_dict = {
-            'Mean': np.mean(self.residuals),
-            'Std Dev': np.std(self.residuals),
-            'Skewness': stats.skew(self.residuals),
-            'Kurtosis': stats.kurtosis(self.residuals),
-            'Min': np.min(self.residuals),
-            'Max': np.max(self.residuals)
+            "Mean": np.mean(self.residuals),
+            "Std Dev": np.std(self.residuals),
+            "Skewness": stats.skew(self.residuals),
+            "Kurtosis": stats.kurtosis(self.residuals),
+            "Min": np.min(self.residuals),
+            "Max": np.max(self.residuals),
         }
         return pd.Series(stats_dict)
 
@@ -49,19 +47,19 @@ class ResidualAnalyzer:
         """
         if plot:
             plt.figure(figsize=(12, 6))
-        
+
             plt.subplot(1, 2, 1)
             sns.histplot(self.residuals, kde=True)
-            plt.title('Residual Distribution')
-            plt.xlabel('Residual Value')
-            plt.ylabel('Frequency')
+            plt.title("Residual Distribution")
+            plt.xlabel("Residual Value")
+            plt.ylabel("Frequency")
             plt.savefig("residual_distribution.png")
-        
+
             plt.subplot(1, 2, 2)
             stats.probplot(self.residuals, dist="norm", plot=plt)
-            plt.title('Q-Q Plot of Residuals')
+            plt.title("Q-Q Plot of Residuals")
             plt.savefig("qq_plot.png")
-        
+
             plt.tight_layout()
             plt.show()
 
@@ -74,10 +72,12 @@ class ResidualAnalyzer:
         jb_stat, jb_p = stats.jarque_bera(self.residuals)
 
         results = {
-            'Shapiro-Wilk': {'statistic': shapiro_stat, 'p-value': shapiro_p},
-            'Anderson-Darling': {'statistic': anderson_result.statistic, 
-                                 'critical_values': anderson_result.critical_values},
-            'Jarque-Bera': {'statistic': jb_stat, 'p-value': jb_p}
+            "Shapiro-Wilk": {"statistic": shapiro_stat, "p-value": shapiro_p},
+            "Anderson-Darling": {
+                "statistic": anderson_result.statistic,
+                "critical_values": anderson_result.critical_values,
+            },
+            "Jarque-Bera": {"statistic": jb_stat, "p-value": jb_p},
         }
         return results
 
@@ -87,17 +87,17 @@ class ResidualAnalyzer:
         """
         acf_values = acf(self.residuals, nlags=nlags, fft=False)
         confidence_interval = 1.96 / np.sqrt(len(self.residuals))
-        
+
         if plot:
             plt.figure(figsize=(12, 4))
             plt.bar(range(len(acf_values)), acf_values)
-            plt.axhline(y=confidence_interval, color='r', linestyle='--')
-            plt.axhline(y=-confidence_interval, color='r', linestyle='--')
-            plt.title('Autocorrelation Function of Residuals')
-            plt.xlabel('Lag')
-            plt.ylabel('ACF')
+            plt.axhline(y=confidence_interval, color="r", linestyle="--")
+            plt.axhline(y=-confidence_interval, color="r", linestyle="--")
+            plt.title("Autocorrelation Function of Residuals")
+            plt.xlabel("Lag")
+            plt.ylabel("ACF")
             plt.savefig("autocorrelation_function.png")
-        
+
             plt.show()
         return acf_values
 
@@ -107,19 +107,24 @@ class ResidualAnalyzer:
         """
         interpretations = []
         stats = self.basic_statistics()
-        if abs(stats['Mean']) < 0.1:
+        if abs(stats["Mean"]) < 0.1:
             interpretations.append("Residuals have a near-zero mean, which is good.")
         else:
-            interpretations.append("Residuals show bias, suggesting model adjustments are needed.")
-        
+            interpretations.append(
+                "Residuals show bias, suggesting model adjustments are needed."
+            )
+
         normality_tests = self.normality_tests()
-        shapiro_p = normality_tests['Shapiro-Wilk']['p-value']
+        shapiro_p = normality_tests["Shapiro-Wilk"]["p-value"]
         if shapiro_p > 0.05:
             interpretations.append("Residuals look normally distributed.")
         else:
-            interpretations.append("Residuals deviate from normality, which may impact reliability.")
-        
+            interpretations.append(
+                "Residuals deviate from normality, which may impact reliability."
+            )
+
         return "\n".join(interpretations)
+
 
 def main():
     """
@@ -132,7 +137,7 @@ def main():
 
     # Initialize ResidualAnalyzer
     analyzer = ResidualAnalyzer(actual_values, predicted_values)
-    
+
     # Print basic statistics
     logger.info("### Basic Statistics ###")
     logger.info(analyzer.basic_statistics())
@@ -154,6 +159,7 @@ def main():
     # Interpret residual analysis
     logger.info("\n### Residual Analysis Interpretation ###")
     logger.info(analyzer.interpret_residual_analysis())
+
 
 if __name__ == "__main__":
     main()
