@@ -3,7 +3,6 @@
 
 
 from scipy import stats
-from statsmodels.graphics.gofplots import ProbPlot
 from statsmodels.tsa.stattools import acf
 from statsmodels.tsa.stattools import acf  # Correct import
 import logging
