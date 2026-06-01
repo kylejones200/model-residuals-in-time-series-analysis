@@ -11,14 +11,7 @@ Residuals are the gaps between what the model predicts and what actually happens
 
 A histogram and density plot show how residuals are distributed. A symmetric, bell-shaped curve suggests normality. Deviations hint at skewness or heavy tails.
 
-## About
 
-Place the code for this article in this repository.
-The original article export is saved as `article.md`.
-
-## Files
-
-Add your `.ipynb`, `.py`, `.yaml`, `.js`, `.ts`, or other project files here.
 
 ## Disclaimer
 
